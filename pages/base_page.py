@@ -29,26 +29,3 @@ class BasePage:
 
     def get_visible_element(self,  locator, timeout=DEFAULT_TIMEOUT):
         return WDWait(self.web_drv, timeout).until((ec.visibility_of_element_located(locator)))
-
-
-
-    # def get_element_text(self, locator, timeout=DEFAULT_TIMEOUT):
-    #     return WDWait(self.web_drv, timeout).until(ec.visibility_of_element_located(locator)).text
-    #
-    #
-
-
-    # def switch_to_new_window(self, timeout=DEFAULT_TIMEOUT):
-    #     wait = WDWait(self.web_drv, timeout)
-    #     wait.until(ec.number_of_windows_to_be(2))
-    #     for window_handle in self.web_drv.window_handles:
-    #         if window_handle != self.web_drv.current_window_handle:
-    #             self.web_drv.switch_to.window(window_handle)
-    #             break
-    #
-    #
-    # def scroll_to_element(self, locator, timeout=DEFAULT_TIMEOUT):
-    #     target_element = WDWait(self.web_drv, timeout).until(ec.visibility_of_element_located(locator))
-    #     self.web_drv.execute_script("arguments[0].scrollIntoView();", target_element)
-    #
-

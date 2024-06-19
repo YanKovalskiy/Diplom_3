@@ -1,5 +1,4 @@
 import allure
-import time
 
 
 class TestPasswordRecovery:

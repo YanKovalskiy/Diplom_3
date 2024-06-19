@@ -5,6 +5,9 @@ from selenium import webdriver
 from pages.login_page import LoginPage
 from pages.forgot_password_page import ForgotPasswordPage
 from pages.reset_password_page import ResetPasswordPage
+from pages.account_profile_page import AccountProfilePage
+from pages.account_order_history_page import AccountOrderHistoryPage
+from pages.header import Header
 from config import URL
 
 
@@ -32,6 +35,21 @@ def forgot_password_page(web_drv):
 @pytest.fixture()
 def reset_password_page(web_drv):
     return ResetPasswordPage(web_drv)
+
+
+@pytest.fixture()
+def account_profile_page(web_drv):
+    return AccountProfilePage(web_drv)
+
+
+@pytest.fixture()
+def account_order_history_page(web_drv):
+    return AccountOrderHistoryPage(web_drv)
+
+
+@pytest.fixture()
+def header(web_drv):
+    return Header(web_drv)
 
 
 @pytest.fixture()

@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 
 
-class ResetPasswordLocators:
+class ResetPasswordPageLocators:
 
     ICON_IN_FIELD_PASSWORD = By.XPATH, "//*[contains(@class, 'input__icon')]"
     BORDER_FIELD_PASSWORD = By.XPATH, "//*[contains(@class, 'Auth_form')]/fieldset[1]/div/div"
