@@ -18,15 +18,24 @@ class BasePage:
     def click_by_element(self, locator, timeout=DEFAULT_TIMEOUT):
         WDWait(self.web_drv, timeout).until(ec.element_to_be_clickable(locator)).click()
 
+    def fill_field(self, locator, text, timeout=DEFAULT_TIMEOUT):
+        WDWait(self.web_drv, timeout).until(ec.element_to_be_clickable(locator)).send_keys(text)
+
+    def wait_visible_element(self, locator, timeout=DEFAULT_TIMEOUT):
+         WDWait(self.web_drv, timeout).until(ec.visibility_of_element_located(locator))
+
+    def get_attribute_element(self, locator, attribute, timeout=DEFAULT_TIMEOUT):
+        return WDWait(self.web_drv, timeout).until(ec.visibility_of_element_located(locator)).get_attribute(attribute)
+
+    def get_visible_element(self,  locator, timeout=DEFAULT_TIMEOUT):
+        return WDWait(self.web_drv, timeout).until((ec.visibility_of_element_located(locator)))
+
+
 
     # def get_element_text(self, locator, timeout=DEFAULT_TIMEOUT):
     #     return WDWait(self.web_drv, timeout).until(ec.visibility_of_element_located(locator)).text
     #
-    # def get_attribute_element(self, locator, attribute, timeout=DEFAULT_TIMEOUT):
-    #     return WDWait(self.web_drv, timeout).until(ec.visibility_of_element_located(locator)).get_attribute(attribute)
     #
-    # def fill_field(self, locator, text, timeout=DEFAULT_TIMEOUT):
-    #     WDWait(self.web_drv, timeout).until(ec.element_to_be_clickable(locator)).send_keys(text)
 
 
     # def switch_to_new_window(self, timeout=DEFAULT_TIMEOUT):
@@ -42,5 +51,4 @@ class BasePage:
     #     target_element = WDWait(self.web_drv, timeout).until(ec.visibility_of_element_located(locator))
     #     self.web_drv.execute_script("arguments[0].scrollIntoView();", target_element)
     #
-    # def wait_visible_element(self, locator, timeout=DEFAULT_TIMEOUT):
-    #     WDWait(self.web_drv, timeout).until(ec.visibility_of_element_located(locator))
+
