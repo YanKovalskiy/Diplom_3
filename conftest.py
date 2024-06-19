@@ -58,3 +58,7 @@ def login_details():
         'email': 'yankovskiy_8@gmail.com',
         'password': '123456'
     }
+@pytest.fixture()
+def logged(login_page, login_details):
+    login_page.open_login_page()
+    login_page.logining(login_details)
