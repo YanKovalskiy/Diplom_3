@@ -1,5 +1,9 @@
 import pytest
+
 from selenium import webdriver
+
+from pages.login_page import LoginPage
+from pages.forgot_password_page import ForgotPasswordPage
 from config import URL
 
 
@@ -12,3 +16,13 @@ def web_drv():
     yield driver
 
     driver.quit()
+
+
+@pytest.fixture()
+def login_page(web_drv):
+    return LoginPage(web_drv)
+
+
+@pytest.fixture()
+def forgot_password_page(web_drv):
+    return ForgotPasswordPage(web_drv)
