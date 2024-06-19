@@ -4,6 +4,7 @@ from selenium import webdriver
 
 from pages.login_page import LoginPage
 from pages.forgot_password_page import ForgotPasswordPage
+from pages.reset_password_page import ResetPasswordPage
 from config import URL
 
 
@@ -26,3 +27,16 @@ def login_page(web_drv):
 @pytest.fixture()
 def forgot_password_page(web_drv):
     return ForgotPasswordPage(web_drv)
+
+
+@pytest.fixture()
+def reset_password_page(web_drv):
+    return ResetPasswordPage(web_drv)
+
+
+@pytest.fixture()
+def login_details():
+    return {
+        'email': 'yankovskiy_8@gmail.com',
+        'password': '123456'
+    }
