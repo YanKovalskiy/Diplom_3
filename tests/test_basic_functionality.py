@@ -1,10 +1,5 @@
-# Проверь:
-
-# всплывающее окно закрывается кликом по крестику,
-# при добавлении ингредиента в заказ счётчик этого ингридиента увеличивается,
-# залогиненный пользователь может оформить заказ.
-
 import allure
+import pytest
 
 
 class TestBasicFunctionality:
@@ -36,7 +31,31 @@ class TestBasicFunctionality:
     def test_close_pop_up_details_window_by_click_on_cross_button(self, index_page):
         index_page.open_index_page()
         index_page.click_on_ingredient_by_index_(1)
+        popup_window = index_page.get_popup_details_window()
         index_page.click_cross_button_in_details_window()
 
+        assert 'Modal_modal_opened' not in popup_window.get_attribute('class')
 
+    @allure.title('Проверка увеличения счетчика ингредиента при добавлении его в заказ')
+    @pytest.mark.parametrize(
+        'ingredient_index, counter_inc',
+        (
+                (0, 2), (3, 1)
+        )
+    )
+    def test_increment_ingredient_counter_when_adding_it_to_order(self, index_page, ingredient_index, counter_inc):
+        index_page.open_index_page()
+        counter_before = index_page.get_counter_ingredient_by_index_(ingredient_index)
+        index_page.add_ingredient_to_order_by_index(ingredient_index)
+        counter_past = index_page.get_counter_ingredient_by_index_(ingredient_index)
 
+        assert counter_past == counter_before + counter_inc
+
+    @allure.title('Проверка авторизированный пользователь может оформить заказ')
+    def test_logged_user_can_place_order(self, user, logged, index_page):
+        index_page.add_ingredient_to_order_by_index(1)
+        index_page.add_ingredient_to_order_by_index(4)
+        index_page.click_button_place_order()
+
+        with allure.step(f'Проверяем, что заказ оформлен'):
+            assert index_page.get_text_fom_order_confirm_window() == 'Ваш заказ начали готовить'
