@@ -1,5 +1,6 @@
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait as WDWait
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class BasePage:
@@ -37,3 +38,6 @@ class BasePage:
         elements_list = WDWait(self.web_drv, timeout).until((ec.visibility_of_all_elements_located(locator)))
         # elements_list = self.web_drv.find_elements(*locator)
         return elements_list[index]
+
+    def drag_and_drop(self, source_drag, target_drop):
+        ActionChains(self.web_drv).drag_and_drop(source_drag, target_drop).perform()

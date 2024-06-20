@@ -2,10 +2,14 @@ from selenium.webdriver.common.by import By
 
 
 class IndexPageLocators:
-    LIST_OF_INGREDIENTS = By.XPATH, "//a[contains(@class, 'BurgerIngredient_ingredient')]"
-    NAME_INGREDIENT_IN_DETAILS_WINDOW = By.XPATH, "//*[contains(@class, 'Modal_modal_opened')]/div/div/p"
-    BUTTON_CROSS_IN_DETAILS_WINDOW = By.XPATH, "//*[contains(@class, 'Modal_modal_opened')]//button"
+    BUTTON_PLACE_ORDER = By.XPATH, "//button[text()='Оформить заказ']"
 
-    TAB_BUNS = By.XPATH, "//span[text()='Булки']/parent::div"
-    TAB_SAUCES = By.XPATH, "//span[text()='Соусы']/parent::div"
-    TAB_FILLINGS = By.XPATH, "//span[text()='Начинки']/parent::div"
+    LIST_OF_INGREDIENTS = By.XPATH, "//a[contains(@class, 'BurgerIngredient_ingredient')]"
+    LIST_COUNTERS_OF_INGREDIENTS = By.XPATH, "//*[contains(@class, 'counter_counter__num')]"
+    SECTION_CONSTRUCTOR_BASKET = By.XPATH, "//section[contains(@class, 'BurgerConstructor_basket')]"
+
+    TEXT_NAME_INGREDIENT_IN_DETAILS_WINDOW = By.XPATH, "//*[contains(@class, 'Modal_modal_opened')]/div/div/p"
+    BUTTON_CROSS_IN_DETAILS_WINDOW = By.XPATH, "//*[contains(@class, 'Modal_modal_opened')]//button"
+    MODAL_POPUP_WINDOW = By.XPATH, "//*[contains(@class, 'Modal_modal_opened')]"
+
+    TEXT_ORDER_START_TO_PREPARE = By.XPATH, "//*[contains(@class, 'Modal_modal__text')]/p[1]"
