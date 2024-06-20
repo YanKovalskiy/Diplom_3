@@ -6,11 +6,13 @@ from config import URL
 
 
 class ForgotPasswordPage(BasePage):
-    FORGOT_PASSWORD_PAGE_URL = f'{URL}/forgot-password'
+    def __init__(self, web_drv):
+        super().__init__(web_drv)
+        self.URL = f'{URL}/forgot-password'
 
-    @allure.step(f'Открываем страницу {FORGOT_PASSWORD_PAGE_URL}')
     def open_forgot_password_page(self):
-        self.open_page(self.FORGOT_PASSWORD_PAGE_URL)
+        with allure.step(f'Открываем страницу {self.URL}'):
+            self.open_page(self.URL)
 
     @allure.step("Заполняем поле 'E-mail'")
     def fill_email_field(self, email):

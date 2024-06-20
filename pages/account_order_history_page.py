@@ -3,4 +3,6 @@ from config import URL
 
 
 class AccountOrderHistoryPage(BasePage):
-    ACCOUNT_ORDER_HISTORY_PAGE_URL = f'{URL}/account/order-history'
+    def __init__(self, web_drv):
+        super().__init__(web_drv)
+        self.URL = f'{URL}/account/order-history'

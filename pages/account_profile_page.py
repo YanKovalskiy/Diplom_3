@@ -6,7 +6,9 @@ from config import URL
 
 
 class AccountProfilePage(BasePage):
-    ACCOUNT_PROFILE_PAGE_URL = f'{URL}/account/profile'
+    def __init__(self, web_drv):
+        super().__init__(web_drv)
+        self.URL = f'{URL}/account/profile'
 
     @allure.step("Ожидаем загрузки страницы")
     def wait_loading_page(self):

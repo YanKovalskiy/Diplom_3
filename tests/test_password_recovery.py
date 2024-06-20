@@ -8,7 +8,7 @@ class TestPasswordRecovery:
         login_page.open_login_page()
         login_page.click_link_recovery_password()
         with allure.step(f'Проверяем текущий url (URL = {login_page.current_url})'):
-            assert login_page.current_url == forgot_password_page.FORGOT_PASSWORD_PAGE_URL
+            assert login_page.current_url == forgot_password_page.URL
 
     @allure.title("Проверка ввод почты и клик по кнопке 'Восстановить'")
     def test_enter_email_and_click_restore_button(self, forgot_password_page, reset_password_page, user):
@@ -17,7 +17,7 @@ class TestPasswordRecovery:
         forgot_password_page.click_button_recovery()
         reset_password_page.wait_load_page()
         with allure.step(f'Проверяем текущий url (URL = {forgot_password_page.current_url})'):
-            assert forgot_password_page.current_url == reset_password_page.RESET_PASSWORD_PAGE_URL
+            assert forgot_password_page.current_url == reset_password_page.URL
 
     @allure.title("Проверка клик по кнопке показать/скрыть пароль делает поле активным — подсвечивает его.")
     def test_click_show_hide_password_button_makes_field_active(self, forgot_password_page,

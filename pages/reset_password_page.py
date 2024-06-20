@@ -6,7 +6,9 @@ from config import URL
 
 
 class ResetPasswordPage(BasePage):
-    RESET_PASSWORD_PAGE_URL = f'{URL}/reset-password'
+    def __init__(self, web_drv):
+        super().__init__(web_drv)
+        self.URL = f'{URL}/reset-password'
 
     @property
     def inactive_border_of_field_password(self):

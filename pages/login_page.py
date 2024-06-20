@@ -6,11 +6,13 @@ from config import URL
 
 
 class LoginPage(BasePage):
-    LOGIN_PAGE_URL = f'{URL}/login'
+    def __init__(self, web_drv):
+        super().__init__(web_drv)
+        self.URL = f'{URL}/login'
 
-    @allure.step(f'Открываем страницу {LOGIN_PAGE_URL}')
     def open_login_page(self):
-        self.open_page(self.LOGIN_PAGE_URL)
+        with allure.step(f'Открываем страницу {self.URL}'):
+            self.open_page(self.URL)
 
     @allure.step('Ожидаем загрузки страницы')
     def wait_loading_page(self):
