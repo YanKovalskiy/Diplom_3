@@ -1,6 +1,9 @@
 import pytest
+import requests
+import allure
 
 from selenium import webdriver
+from faker import Faker
 
 from pages.login_page import LoginPage
 from pages.forgot_password_page import ForgotPasswordPage
@@ -9,6 +12,30 @@ from pages.account_profile_page import AccountProfilePage
 from pages.account_order_history_page import AccountOrderHistoryPage
 from pages.header import Header
 from config import URL
+
+
+@pytest.fixture(scope='session')
+def user():
+    fake = Faker()
+    payload = {
+        "email": f'yva2024{fake.email()}',
+        "password": fake.password(),
+        "name": fake.user_name()
+    }
+    try:
+        with allure.step('Отправляем запрос на создание пользователя'):
+            response = requests.post(f'{URL}/api/auth/register', json=payload)
+    except requests.RequestException as e:
+        raise e
+    else:
+        access_token = response.json()['accessToken']
+        del payload['name']
+
+        yield payload   # email, password
+
+        with allure.step('Отправляем запрос на удаление пользователя'):
+            headers = {"Authorization": access_token}
+            requests.delete(f'{URL}/api/auth/user', headers=headers)
 
 
 @pytest.fixture()
@@ -53,12 +80,6 @@ def header(web_drv):
 
 
 @pytest.fixture()
-def login_details():
-    return {
-        'email': 'yankovskiy_8@gmail.com',
-        'password': '123456'
-    }
-@pytest.fixture()
-def logged(login_page, login_details):
+def logged(login_page, user):
     login_page.open_login_page()
-    login_page.logining(login_details)
+    login_page.logining(user)
