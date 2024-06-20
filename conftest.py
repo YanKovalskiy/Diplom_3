@@ -5,7 +5,9 @@ import allure
 from selenium import webdriver
 from faker import Faker
 
+from pages.index_page import IndexPage
 from pages.login_page import LoginPage
+from pages.orders_feed_page import OrdersFeedPage
 from pages.forgot_password_page import ForgotPasswordPage
 from pages.reset_password_page import ResetPasswordPage
 from pages.account_profile_page import AccountProfilePage
@@ -50,8 +52,18 @@ def web_drv():
 
 
 @pytest.fixture()
+def index_page(web_drv):
+    return IndexPage(web_drv)
+
+
+@pytest.fixture()
 def login_page(web_drv):
     return LoginPage(web_drv)
+
+
+@pytest.fixture()
+def order_feed_page(web_drv):
+    return OrdersFeedPage(web_drv)
 
 
 @pytest.fixture()
