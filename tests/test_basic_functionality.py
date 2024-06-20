@@ -52,6 +52,7 @@ class TestBasicFunctionality:
         counter_before = index_page.get_counter_ingredient_by_index_(ingredient_index)
         index_page.add_ingredient_to_order_by_index(ingredient_index)
         counter_past = index_page.get_counter_ingredient_by_index_(ingredient_index)
+
         with allure.step(f'Проверяем что счетчик увеличился на {counter_inc}'):
             assert counter_past == counter_before + counter_inc
 
