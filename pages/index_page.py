@@ -46,6 +46,10 @@ class IndexPage(BasePage):
     def get_text_fom_order_confirm_window(self):
         return self.get_visible_element(IndexPageLocators.TEXT_ORDER_START_TO_PREPARE).text
 
+    @allure.step('Получаем номер заказа из окна подтверждения заказа')
+    def get_order_number_fom_order_confirm_window(self):
+        return f'0{self.get_element(IndexPageLocators.ORDER_NUMBER_IN_POPUP_WINDOW).text}'
+
     @allure.step("Получаем web-элемент pop-up окно 'Детали ингредиента'")
     def get_popup_details_window(self):
         return self.get_visible_element(IndexPageLocators.MODAL_POPUP_WINDOW)

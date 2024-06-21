@@ -33,3 +33,16 @@ class OrdersFeedPage(BasePage):
     @allure.step('Получаем номер заказа из всплывающего окна')
     def get_order_number_in_popup_window(self):
         return self.get_visible_element(OrderFeedPageLocators.ORDER_NUMBER_IN_POPUP_WINDOW).text
+
+    @allure.step('Получаем количество выполненных заказов за все время')
+    def get_count_completed_orders_for_all_time(self):
+        return int(self.get_visible_element(OrderFeedPageLocators.COUNTER_COMPLETED_FOR_ALL_TIME).text)
+
+    @allure.step('Получаем количество выполненных заказов за сегодня')
+    def get_count_completed_orders_for_today(self):
+        return int(self.get_visible_element(OrderFeedPageLocators.COUNTER_COMPLETED_FOR_TODAY).text)
+
+    @allure.step('Получаем список заказов в работе')
+    def get_orders_number_in_progress(self):
+        return list(order_number.text for order_number in self.get_visible_elements(
+            OrderFeedPageLocators.LIST_ORDER_IN_PROGRESS))

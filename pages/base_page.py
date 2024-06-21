@@ -31,6 +31,9 @@ class BasePage:
     def get_attribute_element(self, locator, attribute, timeout=DEFAULT_TIMEOUT):
         return WDWait(self.web_drv, timeout).until(ec.visibility_of_element_located(locator)).get_attribute(attribute)
 
+    def get_element(self, locator):
+        return self.web_drv.find_element(*locator)
+
     def get_visible_element(self,  locator, timeout=DEFAULT_TIMEOUT):
         return WDWait(self.web_drv, timeout).until((ec.visibility_of_element_located(locator)))
 

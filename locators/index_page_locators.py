@@ -11,5 +11,9 @@ class IndexPageLocators:
     BUTTON_CROSS_IN_POPUP_WINDOW = By.XPATH, "//*[contains(@class, 'Modal_modal_opened')]//button"
     MODAL_POPUP_WINDOW = By.XPATH, "//*[contains(@class, 'Modal_modal_opened')]"
 
+    ORDER_NUMBER_IN_POPUP_WINDOW = By.XPATH, "//h2[contains(@class,'title_shadow')]"
+
     TEXT_NAME_INGREDIENT_IN_DETAILS_WINDOW = By.XPATH, "//*[contains(@class, 'Modal_modal_opened')]/div/div/p"
     TEXT_ORDER_START_TO_PREPARE = By.XPATH, "//*[contains(@class, 'Modal_modal__text')]/p[1]"
+
+    MODAL_WAIT_WINDOW = By.XPATH, "//div[contains(@class, 'modal_opened')]"

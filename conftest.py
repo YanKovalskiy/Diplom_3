@@ -15,6 +15,7 @@ from pages.account_order_history_page import AccountOrderHistoryPage
 from pages.header import Header
 from config import URL
 from config import Browsers
+from helpers import create_order
 
 
 @pytest.fixture(scope='session')
@@ -108,7 +109,4 @@ def logged(login_page, user):
 def order(request, user, logged, index_page):
     orders_count = request.node.get_closest_marker('orders_count').args[0]
     for _ in range(orders_count):
-        index_page.add_ingredient_to_order_by_index(1)
-        index_page.add_ingredient_to_order_by_index(4)
-        index_page.click_button_place_order()
-        index_page.click_cross_button_in_popup_window()
+        create_order(index_page)

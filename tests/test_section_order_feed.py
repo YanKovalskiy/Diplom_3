@@ -1,10 +1,7 @@
-# Проверь:
-#
-# при создании нового заказа счётчик Выполнено за всё время увеличивается,
-# при создании нового заказа счётчик Выполнено за сегодня увеличивается,
-# после оформления заказа его номер появляется в разделе В работе.
 import allure
 import pytest
+
+from helpers import create_order
 
 
 class TestSectionOrderFeed:
@@ -32,3 +29,40 @@ class TestSectionOrderFeed:
         for order_number in order_numbers_from_order_history:
             with allure.step(f"Проверяем есть ли заказ {order_number} в 'Ленте заказов'"):
                 assert order_number in order_numbers_from_order_feed
+
+    @allure.title("Проверка увеличения счётчика 'Выполнено за всё время' при создании нового заказа")
+    def test_increases_completed_for_all_time_counter_after_creating_order(self, user, logged, header, index_page,
+                                                                           order_feed_page):
+        header.click_by_link_orders_feed()
+        counter_before = order_feed_page.get_count_completed_orders_for_all_time()
+        header.click_by_link_constructor()
+        create_order(index_page)
+        header.click_by_link_orders_feed()
+        with allure.step('Проверяем увеличение счетчика'):
+            assert order_feed_page.get_count_completed_orders_for_all_time() == counter_before + 1
+
+    @allure.title("Проверка увеличения счётчика 'Выполнено за сегодня' при создании нового заказа")
+    def test_increases_completed_for_today_counter_after_creating_order(self, user, logged, header, index_page,
+                                                                        order_feed_page):
+        header.click_by_link_orders_feed()
+        counter_before = order_feed_page.get_count_completed_orders_for_today()
+        header.click_by_link_constructor()
+        create_order(index_page)
+        header.click_by_link_orders_feed()
+        with allure.step('Проверяем увеличение счетчика'):
+            assert order_feed_page.get_count_completed_orders_for_today() == counter_before + 1
+
+    @allure.title("Проверка появления номера заказа в разделе 'В работе' после его оформления")
+    def test_order_number_appears_in_section_in_progress_after_place_order(self, user, logged, header,
+                                                                           index_page, order_feed_page):
+        index_page.add_ingredient_to_order_by_index(0)
+        index_page.add_ingredient_to_order_by_index(3)
+        index_page.click_button_place_order()
+        index_page.click_cross_button_in_popup_window()
+        order_number = index_page.get_order_number_fom_order_confirm_window()
+        header.click_by_link_orders_feed()
+        order_numbers_in_progress = order_feed_page.get_orders_number_in_progress()
+
+        with allure.step(f"Проверяем номер нового заказа - {order_number}"
+                         f" в разделе 'В работе' {order_numbers_in_progress}"):
+            assert order_number in order_numbers_in_progress
