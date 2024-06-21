@@ -34,10 +34,8 @@ class BasePage:
     def get_visible_element(self,  locator, timeout=DEFAULT_TIMEOUT):
         return WDWait(self.web_drv, timeout).until((ec.visibility_of_element_located(locator)))
 
-    def get_visible_element_form_elements_by_index(self, locator, index, timeout=DEFAULT_TIMEOUT):
-        elements_list = WDWait(self.web_drv, timeout).until((ec.visibility_of_all_elements_located(locator)))
-        # elements_list = self.web_drv.find_elements(*locator)
-        return elements_list[index]
+    def get_visible_elements(self, locator, timeout=DEFAULT_TIMEOUT):
+        return WDWait(self.web_drv, timeout).until((ec.visibility_of_all_elements_located(locator)))
 
     def drag_and_drop(self, source_drag, target_drop):
         ActionChains(self.web_drv).drag_and_drop(source_drag, target_drop).perform()

@@ -14,6 +14,7 @@ from pages.account_profile_page import AccountProfilePage
 from pages.account_order_history_page import AccountOrderHistoryPage
 from pages.header import Header
 from config import URL
+from config import Browsers
 
 
 @pytest.fixture(scope='session')
@@ -40,15 +41,21 @@ def user():
             requests.delete(f'{URL}/api/auth/user', headers=headers)
 
 
-@pytest.fixture()
-def web_drv():
-    driver = webdriver.Chrome()
-    driver.maximize_window()
-    driver.get(URL)
+@pytest.fixture(params=[Browsers.CHROME])  # , Browsers.FIREFOX
+def web_drv(request):
+    driver = None
+    with allure.step(f'Инициализируем драйвер браузера {request.param}'):
+        if request.param == Browsers.CHROME:
+            driver = webdriver.Chrome()
+        elif request.param == Browsers.FIREFOX:
+            driver = webdriver.Firefox()
+        driver.maximize_window()
+        driver.get(URL)
 
     yield driver
 
-    driver.quit()
+    with allure.step(f'Зарываем браузер - {request.param}'):
+        driver.quit()
 
 
 @pytest.fixture()
@@ -95,3 +102,13 @@ def header(web_drv):
 def logged(login_page, user):
     login_page.open_login_page()
     login_page.logining(user)
+
+
+@pytest.fixture()
+def order(request, user, logged, index_page):
+    orders_count = request.node.get_closest_marker('orders_count').args[0]
+    for _ in range(orders_count):
+        index_page.add_ingredient_to_order_by_index(1)
+        index_page.add_ingredient_to_order_by_index(4)
+        index_page.click_button_place_order()
+        index_page.click_cross_button_in_popup_window()

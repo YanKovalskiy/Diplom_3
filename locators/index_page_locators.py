@@ -8,8 +8,8 @@ class IndexPageLocators:
     LIST_COUNTERS_OF_INGREDIENTS = By.XPATH, "//*[contains(@class, 'counter_counter__num')]"
     SECTION_CONSTRUCTOR_BASKET = By.XPATH, "//section[contains(@class, 'BurgerConstructor_basket')]"
 
-    TEXT_NAME_INGREDIENT_IN_DETAILS_WINDOW = By.XPATH, "//*[contains(@class, 'Modal_modal_opened')]/div/div/p"
-    BUTTON_CROSS_IN_DETAILS_WINDOW = By.XPATH, "//*[contains(@class, 'Modal_modal_opened')]//button"
+    BUTTON_CROSS_IN_POPUP_WINDOW = By.XPATH, "//*[contains(@class, 'Modal_modal_opened')]//button"
     MODAL_POPUP_WINDOW = By.XPATH, "//*[contains(@class, 'Modal_modal_opened')]"
 
+    TEXT_NAME_INGREDIENT_IN_DETAILS_WINDOW = By.XPATH, "//*[contains(@class, 'Modal_modal_opened')]/div/div/p"
     TEXT_ORDER_START_TO_PREPARE = By.XPATH, "//*[contains(@class, 'Modal_modal__text')]/p[1]"

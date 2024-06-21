@@ -16,11 +16,12 @@ class IndexPage(BasePage):
 
     @allure.step('Нажимаем на ингредиент')
     def click_on_ingredient_by_index_(self, index):
-        self.get_visible_element_form_elements_by_index(IndexPageLocators.LIST_OF_INGREDIENTS, index).click()
+        ingredients = self.get_visible_elements(IndexPageLocators.LIST_OF_INGREDIENTS)
+        ingredients[index].click()
 
-    @allure.step('Нажимаем на крестик в окне с деталями о ингредиенте')
-    def click_cross_button_in_details_window(self):
-        self.click_by_element(IndexPageLocators.BUTTON_CROSS_IN_DETAILS_WINDOW)
+    @allure.step('Нажимаем на крестик во всплывающем окне')
+    def click_cross_button_in_popup_window(self):
+        self.click_by_element(IndexPageLocators.BUTTON_CROSS_IN_POPUP_WINDOW)
 
     @allure.step("Нажимаем на кнопку 'Оформить заказ'")
     def click_button_place_order(self):
@@ -28,14 +29,14 @@ class IndexPage(BasePage):
 
     @allure.step('Добавляем ингредиент в заказ')
     def add_ingredient_to_order_by_index(self, index):
-        ingredient = self.get_visible_element_form_elements_by_index(IndexPageLocators.LIST_OF_INGREDIENTS, index)
+        ingredients = self.get_visible_elements(IndexPageLocators.LIST_OF_INGREDIENTS)
         basket = self.get_visible_element(IndexPageLocators.SECTION_CONSTRUCTOR_BASKET)
-        self.drag_and_drop(ingredient, basket)
+        self.drag_and_drop(ingredients[index], basket)
 
     @allure.step('Получаем название ингредиента')
     def get_name_ingredient_by_index_(self, index):
-        ingredient = self.get_visible_element_form_elements_by_index(IndexPageLocators.LIST_OF_INGREDIENTS, index)
-        return ingredient.text.split('\n')[2]
+        ingredients = self.get_visible_elements(IndexPageLocators.LIST_OF_INGREDIENTS)
+        return ingredients[index].text.split('\n')[2]
 
     @allure.step('Получаем название ингредиента в окне с деталями')
     def get_ingredient_name_in_details_window(self):
@@ -51,5 +52,5 @@ class IndexPage(BasePage):
 
     @allure.step('Получаем значение счетчика ингредиента')
     def get_counter_ingredient_by_index_(self, index):
-        counter = self.get_visible_element_form_elements_by_index(IndexPageLocators.LIST_COUNTERS_OF_INGREDIENTS, index)
-        return int(counter.text)
+        counters = self.get_visible_elements(IndexPageLocators.LIST_COUNTERS_OF_INGREDIENTS)
+        return int(counters[index].text)

@@ -35,7 +35,7 @@ class TestBasicFunctionality:
         index_page.open_index_page()
         index_page.click_on_ingredient_by_index_(1)
         popup_window = index_page.get_popup_details_window()
-        index_page.click_cross_button_in_details_window()
+        index_page.click_cross_button_in_popup_window()
 
         with allure.step(f'Проверяем что окно с деталями об ингредиенте закрылось'):
             assert 'Modal_modal_opened' not in popup_window.get_attribute('class')
