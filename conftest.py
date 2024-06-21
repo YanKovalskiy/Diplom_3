@@ -42,7 +42,7 @@ def user():
             requests.delete(f'{URL}/api/auth/user', headers=headers)
 
 
-@pytest.fixture(params=[Browsers.CHROME])  # , Browsers.FIREFOX
+@pytest.fixture(params=[Browsers.CHROME, Browsers.FIREFOX])
 def web_drv(request):
     driver = None
     with allure.step(f'Инициализируем драйвер браузера {request.param}'):
