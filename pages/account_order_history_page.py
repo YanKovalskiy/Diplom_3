@@ -18,4 +18,5 @@ class AccountOrderHistoryPage(BasePage):
     def get_order_numbers(self):
         order_numbers = list(order_number.text for order_number in self.get_visible_elements(
             AccountOrderHistoryPageLocators.LIST_ORDER_NUMBERS))
-        return order_numbers
+        with allure.step(f"Номера заказов из раздела 'История заказов'{order_numbers}"):
+            return order_numbers

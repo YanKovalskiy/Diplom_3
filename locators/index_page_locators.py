@@ -15,5 +15,3 @@ class IndexPageLocators:
 
     TEXT_NAME_INGREDIENT_IN_DETAILS_WINDOW = By.XPATH, "//*[contains(@class, 'Modal_modal_opened')]/div/div/p"
     TEXT_ORDER_START_TO_PREPARE = By.XPATH, "//*[contains(@class, 'Modal_modal__text')]/p[1]"
-
-

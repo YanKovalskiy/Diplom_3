@@ -18,7 +18,7 @@ from config import Browsers
 from helpers import create_order
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture()
 def user():
     fake = Faker()
     payload = {
