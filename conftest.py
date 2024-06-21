@@ -42,13 +42,16 @@ def user():
             requests.delete(f'{URL}/api/auth/user', headers=headers)
 
 
-@pytest.fixture(params=[Browsers.CHROME, Browsers.FIREFOX])
+@pytest.fixture(params=[Browsers.CHROME, Browsers.FIREFOX])  # Browsers.CHROME, Browsers.FIREFOX
 def web_drv(request):
-    driver = None
     with allure.step(f'Инициализируем драйвер браузера {request.param}'):
         if request.param == Browsers.CHROME:
+            # options = webdriver.ChromeOptions()
+            # options.add_argument('--headless')
             driver = webdriver.Chrome()
         elif request.param == Browsers.FIREFOX:
+            # options = webdriver.FirefoxOptions()
+            # options.add_argument('--headless')
             driver = webdriver.Firefox()
         driver.maximize_window()
         driver.get(URL)

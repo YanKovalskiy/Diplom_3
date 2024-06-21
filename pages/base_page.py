@@ -1,10 +1,13 @@
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait as WDWait
-from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
+from seletools.actions import drag_and_drop
 
 
 class BasePage:
     DEFAULT_TIMEOUT = 10
+    MODAL_WAIT_WINDOW = By.XPATH, "//*[@alt='loading animation']/parent::div"
+    #  MODAL_WAIT_WINDOW = By.XPATH, "//div[contains(@class, 'modal_opened')]"
 
     def __init__(self, web_drv):
         self.web_drv = web_drv
@@ -13,10 +16,15 @@ class BasePage:
     def current_url(self):
         return self.web_drv.current_url
 
+    def wait_loading(self, timeout=DEFAULT_TIMEOUT):
+        WDWait(self.web_drv, timeout).until(ec.invisibility_of_element(self.MODAL_WAIT_WINDOW))
+
     def open_page(self, url):
         self.web_drv.get(url)
+        self.wait_loading()
 
     def click_by_element(self, locator, timeout=DEFAULT_TIMEOUT):
+        self.wait_loading()
         WDWait(self.web_drv, timeout).until(ec.element_to_be_clickable(locator)).click()
 
     def fill_field(self, locator, text, timeout=DEFAULT_TIMEOUT):
@@ -41,4 +49,4 @@ class BasePage:
         return WDWait(self.web_drv, timeout).until((ec.visibility_of_all_elements_located(locator)))
 
     def drag_and_drop(self, source_drag, target_drop):
-        ActionChains(self.web_drv).drag_and_drop(source_drag, target_drop).perform()
+        drag_and_drop(self.web_drv, source_drag, target_drop)
