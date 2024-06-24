@@ -39,4 +39,3 @@ class LoginPage(BasePage):
         self.fill_email_field(login_details['email'])
         self.fill_password_field(login_details['password'])
         self.click_button_enter()
-

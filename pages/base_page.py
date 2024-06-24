@@ -7,7 +7,6 @@ from seletools.actions import drag_and_drop
 class BasePage:
     DEFAULT_TIMEOUT = 10
     MODAL_WAIT_WINDOW = By.XPATH, "//*[@alt='loading animation']/parent::div"
-    #  MODAL_WAIT_WINDOW = By.XPATH, "//div[contains(@class, 'modal_opened')]"
 
     def __init__(self, web_drv):
         self.web_drv = web_drv
